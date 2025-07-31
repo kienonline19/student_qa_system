@@ -3,7 +3,7 @@
  * Modules Module - Handles all module-related database operations
  */
 
-require_once 'config/database.php';
+require_once __DIR__ . '/../config/database.php';
 
 /**
  * Get all modules
@@ -115,23 +115,6 @@ function moduleCodeExists($moduleCode, $excludeModuleId = null) {
     } catch (Exception $e) {
         error_log("Error checking module code: " . $e->getMessage());
         return false;
-    }
-}
-
-/**
- * Get posts count for a module
- * @param int $moduleId Module ID
- * @return int Number of posts
- */
-function getModulePostCount($moduleId) {
-    try {
-        $pdo = getDbConnection();
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM posts WHERE module_id = ?");
-        $stmt->execute([$moduleId]);
-        return $stmt->fetchColumn();
-    } catch (Exception $e) {
-        error_log("Error getting module post count: " . $e->getMessage());
-        return 0;
     }
 }
 ?>
