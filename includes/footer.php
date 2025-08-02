@@ -1,6 +1,5 @@
 </main>
 
-    <!-- Footer -->
     <footer class="bg-dark text-light py-4 mt-5">
         <div class="container">
             <div class="row">
@@ -52,15 +51,12 @@
         </div>
     </footer>
 
-    <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JavaScript -->
     <script src="assets/js/script.js"></script>
 </body>
 </html>
 
 <?php
-// Close any open database connections
 if (isset($pdo)) {
     $pdo = null;
 }

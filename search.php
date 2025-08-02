@@ -1,49 +1,36 @@
 <?php
-/**
- * Search Page - Search questions/posts with filters
- */
-
 session_start();
 
-// Include required files
 require_once 'modules/posts.php';
 require_once 'modules/users.php';
 require_once 'modules/modules.php';
 require_once 'includes/validation.php';
 
-// Set page title
 $pageTitle = 'Search Questions';
 
-// Get search parameters
 $searchQuery = isset($_GET['q']) ? trim($_GET['q']) : '';
 $moduleFilter = isset($_GET['module']) ? intval($_GET['module']) : 0;
 $userFilter = isset($_GET['user']) ? intval($_GET['user']) : 0;
 $sortBy = isset($_GET['sort']) ? $_GET['sort'] : 'newest';
 
-// Get all users and modules for filters
 $allUsers = getAllUsers();
 $allModules = getAllModules();
 
-// Initialize results
 $searchResults = [];
 $totalResults = 0;
 
-// Perform search if there are search criteria
 if (!empty($searchQuery) || $moduleFilter > 0 || $userFilter > 0) {
     $searchResults = performAdvancedSearch($searchQuery, $moduleFilter, $userFilter, $sortBy);
     $totalResults = count($searchResults);
 }
 
-// Pagination
 $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
 $resultsPerPage = 10;
 $offset = ($page - 1) * $resultsPerPage;
 $totalPages = ceil($totalResults / $resultsPerPage);
 
-// Get results for current page
 $currentResults = array_slice($searchResults, $offset, $resultsPerPage);
 
-// Build search URL for pagination
 $searchParams = [
     'q' => $searchQuery,
     'module' => $moduleFilter,
@@ -52,20 +39,17 @@ $searchParams = [
 ];
 $baseSearchUrl = 'search.php?' . http_build_query(array_filter($searchParams));
 
-// Include header
 include 'includes/header.php';
 ?>
 
 <div class="row">
     <div class="col-lg-8">
-        <!-- Search Header -->
         <div class="card mb-4">
             <div class="card-body">
                 <h1 class="h3 mb-3">
                     <i class="bi bi-search me-2"></i>Search Questions
                 </h1>
                 
-                <!-- Search Form -->
                 <form method="GET" class="mb-4">
                     <div class="row">
                         <div class="col-md-6 mb-3">
@@ -125,7 +109,6 @@ include 'includes/header.php';
             </div>
         </div>
 
-        <!-- Search Results -->
         <?php if (!empty($searchQuery) || $moduleFilter > 0 || $userFilter > 0): ?>
             <div class="card mb-4">
                 <div class="card-header">
@@ -181,11 +164,9 @@ include 'includes/header.php';
                             </a>
                         </div>
                     <?php else: ?>
-                        <!-- Results List -->
                         <?php foreach ($currentResults as $result): ?>
                             <div class="question-summary border-bottom pb-3 mb-3">
                                 <div class="d-flex">
-                                    <!-- Stats -->
                                     <div class="flex-shrink-0 me-3 text-center" style="min-width: 80px;">
                                         <div class="question-stats">
                                             <div class="stat-number">0</div>
@@ -193,7 +174,6 @@ include 'includes/header.php';
                                         </div>
                                     </div>
                                     
-                                    <!-- Content -->
                                     <div class="flex-grow-1">
                                         <h5 class="mb-2">
                                             <a href="view_post.php?id=<?php echo $result['post_id']; ?>" 
@@ -229,7 +209,6 @@ include 'includes/header.php';
                             </div>
                         <?php endforeach; ?>
 
-                        <!-- Pagination -->
                         <?php if ($totalPages > 1): ?>
                             <nav aria-label="Search results pagination" class="mt-4">
                                 <ul class="pagination justify-content-center">
@@ -265,7 +244,6 @@ include 'includes/header.php';
                 </div>
             </div>
         <?php else: ?>
-            <!-- No search performed yet -->
             <div class="card">
                 <div class="card-body text-center py-5">
                     <i class="bi bi-search display-1 text-muted mb-3"></i>
@@ -299,9 +277,7 @@ include 'includes/header.php';
         <?php endif; ?>
     </div>
 
-    <!-- Sidebar -->
     <div class="col-lg-4">
-        <!-- Quick Search -->
         <div class="card mb-4">
             <div class="card-header">
                 <h6 class="mb-0">
@@ -332,7 +308,6 @@ include 'includes/header.php';
             </div>
         </div>
 
-        <!-- Search Statistics -->
         <?php if ($totalResults > 0): ?>
             <div class="card mb-4">
                 <div class="card-header">
@@ -355,7 +330,6 @@ include 'includes/header.php';
             </div>
         <?php endif; ?>
 
-        <!-- Popular Searches -->
         <div class="card">
             <div class="card-header">
                 <h6 class="mb-0">
@@ -384,9 +358,6 @@ include 'includes/header.php';
 
 <?php
 
-/**
- * Perform advanced search with multiple criteria
- */
 function performAdvancedSearch($query, $moduleId, $userId, $sortBy) {
     $allPosts = getAllPosts();
     $results = [];
@@ -394,7 +365,6 @@ function performAdvancedSearch($query, $moduleId, $userId, $sortBy) {
     foreach ($allPosts as $post) {
         $match = true;
         
-        // Text search in title and content
         if (!empty($query)) {
             $searchText = strtolower($query);
             $postTitle = strtolower($post['title']);
@@ -406,12 +376,10 @@ function performAdvancedSearch($query, $moduleId, $userId, $sortBy) {
             }
         }
         
-        // Module filter
         if ($moduleId > 0 && $post['module_id'] != $moduleId) {
             $match = false;
         }
         
-        // User filter
         if ($userId > 0 && $post['user_id'] != $userId) {
             $match = false;
         }
@@ -421,7 +389,6 @@ function performAdvancedSearch($query, $moduleId, $userId, $sortBy) {
         }
     }
     
-    // Sort results
     usort($results, function($a, $b) use ($sortBy, $query) {
         switch ($sortBy) {
             case 'oldest':
@@ -444,30 +411,23 @@ function performAdvancedSearch($query, $moduleId, $userId, $sortBy) {
     return $results;
 }
 
-/**
- * Calculate relevance score for search results
- */
 function calculateRelevanceScore($post, $query) {
     $score = 0;
     $query = strtolower($query);
     $title = strtolower($post['title']);
     $content = strtolower($post['content']);
     
-    // Title matches are more important
     if (strpos($title, $query) !== false) {
         $score += 10;
     }
     
-    // Exact title match
     if ($title === $query) {
         $score += 20;
     }
     
-    // Content matches
     $contentMatches = substr_count($content, $query);
     $score += $contentMatches * 2;
     
-    // Word matches
     $queryWords = explode(' ', $query);
     foreach ($queryWords as $word) {
         $word = trim($word);
@@ -480,9 +440,6 @@ function calculateRelevanceScore($post, $query) {
     return $score;
 }
 
-/**
- * Highlight search terms in text
- */
 function highlightSearchTerms($text, $query) {
     if (empty($query)) {
         return htmlspecialchars($text);
@@ -502,9 +459,6 @@ function highlightSearchTerms($text, $query) {
     return $text;
 }
 
-/**
- * Format time ago
- */
 function timeAgo($datetime) {
     $time = time() - strtotime($datetime);
     

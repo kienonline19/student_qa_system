@@ -1,14 +1,6 @@
 <?php
-/**
- * Modules Module - Handles all module-related database operations
- */
-
 require_once __DIR__ . '/../config/database.php';
 
-/**
- * Get all modules
- * @return array Array of modules
- */
 function getAllModules() {
     try {
         $pdo = getDbConnection();
@@ -20,11 +12,6 @@ function getAllModules() {
     }
 }
 
-/**
- * Get a single module by ID
- * @param int $moduleId Module ID
- * @return array|false Module data or false if not found
- */
 function getModuleById($moduleId) {
     try {
         $pdo = getDbConnection();
@@ -37,12 +24,6 @@ function getModuleById($moduleId) {
     }
 }
 
-/**
- * Create a new module
- * @param string $moduleCode Module code
- * @param string $moduleName Module name
- * @return int|false New module ID or false on failure
- */
 function createModule($moduleCode, $moduleName) {
     try {
         $pdo = getDbConnection();
@@ -59,13 +40,6 @@ function createModule($moduleCode, $moduleName) {
     }
 }
 
-/**
- * Update an existing module
- * @param int $moduleId Module ID
- * @param string $moduleCode Module code
- * @param string $moduleName Module name
- * @return bool Success status
- */
 function updateModule($moduleId, $moduleCode, $moduleName) {
     try {
         $pdo = getDbConnection();
@@ -77,11 +51,6 @@ function updateModule($moduleId, $moduleCode, $moduleName) {
     }
 }
 
-/**
- * Delete a module
- * @param int $moduleId Module ID
- * @return bool Success status
- */
 function deleteModule($moduleId) {
     try {
         $pdo = getDbConnection();
@@ -93,12 +62,6 @@ function deleteModule($moduleId) {
     }
 }
 
-/**
- * Check if module code exists
- * @param string $moduleCode Module code to check
- * @param int|null $excludeModuleId Module ID to exclude from check (for updates)
- * @return bool True if module code exists
- */
 function moduleCodeExists($moduleCode, $excludeModuleId = null) {
     try {
         $pdo = getDbConnection();

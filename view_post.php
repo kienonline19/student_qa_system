@@ -1,17 +1,10 @@
 <?php
-/**
- * View Post Page - Display individual question/post
- */
-
 session_start();
 
-// Include required files
 require_once 'modules/posts.php';
 
-// Set page title
 $pageTitle = 'View Question';
 
-// Get post ID from URL
 $postId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($postId <= 0) {
@@ -20,7 +13,6 @@ if ($postId <= 0) {
     exit;
 }
 
-// Get post data
 $post = getPostById($postId);
 
 if (!$post) {
@@ -29,16 +21,13 @@ if (!$post) {
     exit;
 }
 
-// Update page title with post title
 $pageTitle = htmlspecialchars($post['title']);
 
-// Include header
 include 'includes/header.php';
 ?>
 
 <div class="row">
     <div class="col-lg-8">
-        <!-- Post Content -->
         <div class="card mb-4">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-start">
@@ -62,8 +51,8 @@ include 'includes/header.php';
                         </div>
                     </div>
                     <div class="dropdown">
-                        <button class="btn btn-outline-secondary btn-sm dropdown-toggle" 
-                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-outline-secondary btn-sm dropdown-toggle"
+                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-three-dots"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
@@ -77,11 +66,13 @@ include 'includes/header.php';
                                     <i class="bi bi-link-45deg me-2"></i>Copy Link
                                 </button>
                             </li>
-                            <li><hr class="dropdown-divider"></li>
                             <li>
-                                <a class="dropdown-item text-danger" 
-                                   href="delete_post.php?id=<?php echo $post['post_id']; ?>"
-                                   data-confirm-delete="Are you sure you want to delete this question? This action cannot be undone.">
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item text-danger"
+                                    href="delete_post.php?id=<?php echo $post['post_id']; ?>"
+                                    data-confirm-delete="Are you sure you want to delete this question? This action cannot be undone.">
                                     <i class="bi bi-trash-fill me-2"></i>Delete Question
                                 </a>
                             </li>
@@ -90,7 +81,6 @@ include 'includes/header.php';
                 </div>
             </div>
             <div class="card-body">
-                <!-- Module Badge -->
                 <div class="mb-3">
                     <span class="badge bg-primary fs-6">
                         <i class="bi bi-book-fill me-1"></i>
@@ -98,23 +88,20 @@ include 'includes/header.php';
                     </span>
                 </div>
 
-                <!-- Post Content -->
                 <div class="post-content">
                     <?php echo nl2br(htmlspecialchars($post['content'])); ?>
                 </div>
 
-                <!-- Post Image -->
                 <?php if ($post['image_path'] && file_exists($post['image_path'])): ?>
                     <div class="mt-4">
-                        <img src="<?php echo htmlspecialchars($post['image_path']); ?>" 
-                             alt="Question image" 
-                             class="img-fluid rounded shadow-sm"
-                             style="max-width: 100%; cursor: pointer;"
-                             data-bs-toggle="modal" 
-                             data-bs-target="#imageModal">
+                        <img src="<?php echo htmlspecialchars($post['image_path']); ?>"
+                            alt="Question image"
+                            class="img-fluid rounded shadow-sm"
+                            style="max-width: 100%; cursor: pointer;"
+                            data-bs-toggle="modal"
+                            data-bs-target="#imageModal">
                     </div>
 
-                    <!-- Image Modal -->
                     <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg modal-dialog-centered">
                             <div class="modal-content">
@@ -123,8 +110,8 @@ include 'includes/header.php';
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body text-center">
-                                    <img src="<?php echo htmlspecialchars($post['image_path']); ?>" 
-                                         alt="Question image" class="img-fluid">
+                                    <img src="<?php echo htmlspecialchars($post['image_path']); ?>"
+                                        alt="Question image" class="img-fluid">
                                 </div>
                             </div>
                         </div>
@@ -148,7 +135,6 @@ include 'includes/header.php';
             </div>
         </div>
 
-        <!-- Navigation -->
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
@@ -165,9 +151,7 @@ include 'includes/header.php';
         </div>
     </div>
 
-    <!-- Sidebar -->
     <div class="col-lg-4">
-        <!-- Author Info -->
         <div class="card mb-4">
             <div class="card-header">
                 <h6 class="mb-0">
@@ -176,8 +160,8 @@ include 'includes/header.php';
             </div>
             <div class="card-body">
                 <div class="d-flex align-items-center">
-                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" 
-                         style="width: 50px; height: 50px; font-size: 1.5rem;">
+                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3"
+                        style="width: 50px; height: 50px; font-size: 1.5rem;">
                         <?php echo strtoupper(substr($post['username'], 0, 1)); ?>
                     </div>
                     <div>
@@ -195,7 +179,6 @@ include 'includes/header.php';
             </div>
         </div>
 
-        <!-- Module Info -->
         <div class="card mb-4">
             <div class="card-header">
                 <h6 class="mb-0">
@@ -205,15 +188,14 @@ include 'includes/header.php';
             <div class="card-body">
                 <h6 class="text-primary"><?php echo htmlspecialchars($post['module_code']); ?></h6>
                 <p class="mb-3"><?php echo htmlspecialchars($post['module_name']); ?></p>
-                
-                <a href="search.php?module=<?php echo $post['module_id']; ?>" 
-                   class="btn btn-outline-primary btn-sm">
+
+                <a href="search.php?module=<?php echo $post['module_id']; ?>"
+                    class="btn btn-outline-primary btn-sm">
                     <i class="bi bi-search me-1"></i>More questions in this module
                 </a>
             </div>
         </div>
 
-        <!-- Related Questions -->
         <div class="card mb-4">
             <div class="card-header">
                 <h6 class="mb-0">
@@ -222,7 +204,6 @@ include 'includes/header.php';
             </div>
             <div class="card-body">
                 <?php
-                // Get other posts from the same module (excluding current post)
                 $allPosts = getAllPosts();
                 $relatedPosts = [];
                 foreach ($allPosts as $otherPost) {
@@ -232,20 +213,20 @@ include 'includes/header.php';
                 }
                 $relatedPosts = array_slice($relatedPosts, 0, 5);
                 ?>
-                
+
                 <?php if (empty($relatedPosts)): ?>
                     <p class="text-muted mb-0">No related questions found.</p>
                 <?php else: ?>
                     <?php foreach ($relatedPosts as $relatedPost): ?>
                         <div class="mb-3 pb-3 border-bottom">
-                            <a href="view_post.php?id=<?php echo $relatedPost['post_id']; ?>" 
-                               class="text-decoration-none">
+                            <a href="view_post.php?id=<?php echo $relatedPost['post_id']; ?>"
+                                class="text-decoration-none">
                                 <div class="fw-bold">
                                     <?php echo htmlspecialchars(substr($relatedPost['title'], 0, 60)) . (strlen($relatedPost['title']) > 60 ? '...' : ''); ?>
                                 </div>
                             </a>
                             <div class="small text-muted">
-                                by <?php echo htmlspecialchars($relatedPost['username']); ?> 
+                                by <?php echo htmlspecialchars($relatedPost['username']); ?>
                                 • <?php echo date('M j', strtotime($relatedPost['created_at'])); ?>
                             </div>
                         </div>
@@ -254,7 +235,6 @@ include 'includes/header.php';
             </div>
         </div>
 
-        <!-- Help & Guidelines -->
         <div class="card">
             <div class="card-header">
                 <h6 class="mb-0">
@@ -280,77 +260,78 @@ include 'includes/header.php';
 </div>
 
 <style>
-/* Custom styles for this page */
-.post-content {
-    font-size: 1.1rem;
-    line-height: 1.8;
-}
-
-.post-content img {
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.post-content img:hover {
-    transform: scale(1.02);
-}
-
-@media print {
-    .card-footer, .dropdown, .btn {
-        display: none !important;
+    .post-content {
+        font-size: 1.1rem;
+        line-height: 1.8;
     }
-    
-    .card {
-        border: none !important;
-        box-shadow: none !important;
+
+    .post-content img {
+        cursor: pointer;
+        transition: transform 0.2s ease;
     }
-}
+
+    .post-content img:hover {
+        transform: scale(1.02);
+    }
+
+    @media print {
+
+        .card-footer,
+        .dropdown,
+        .btn {
+            display: none !important;
+        }
+
+        .card {
+            border: none !important;
+            box-shadow: none !important;
+        }
+    }
 </style>
 
 <script>
-function copyToClipboard(text) {
-    if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(text).then(() => {
-            showAlert('Link copied to clipboard!', 'success', 2000);
-        });
-    } else {
-        // Fallback for older browsers
-        const textArea = document.createElement('textarea');
-        textArea.value = text;
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        try {
-            document.execCommand('copy');
-            showAlert('Link copied to clipboard!', 'success', 2000);
-        } catch (err) {
-            showAlert('Failed to copy link.', 'danger');
+    function copyToClipboard(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(() => {
+                showAlert('Link copied to clipboard!', 'success', 2000);
+            });
+        } else {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showAlert('Link copied to clipboard!', 'success', 2000);
+            } catch (err) {
+                showAlert('Failed to copy link.', 'danger');
+            }
+            document.body.removeChild(textArea);
         }
-        document.body.removeChild(textArea);
     }
-}
 
-function showAlert(message, type = 'info', duration = 5000) {
-    const alertContainer = document.querySelector('.container');
-    if (!alertContainer) return;
-    
-    const alert = document.createElement('div');
-    alert.className = `alert alert-${type} alert-dismissible fade show`;
-    alert.innerHTML = `
+    function showAlert(message, type = 'info', duration = 5000) {
+        const alertContainer = document.querySelector('.container');
+        if (!alertContainer) return;
+
+        const alert = document.createElement('div');
+        alert.className = `alert alert-${type} alert-dismissible fade show`;
+        alert.innerHTML = `
         <i class="bi bi-check-circle-fill me-2"></i>${message}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     `;
-    
-    alertContainer.insertBefore(alert, alertContainer.firstChild);
-    
-    if (duration > 0) {
-        setTimeout(() => {
-            if (alert.parentNode) {
-                alert.remove();
-            }
-        }, duration);
+
+        alertContainer.insertBefore(alert, alertContainer.firstChild);
+
+        if (duration > 0) {
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.remove();
+                }
+            }, duration);
+        }
     }
-}
 </script>
 
 <?php include 'includes/footer.php'; ?>

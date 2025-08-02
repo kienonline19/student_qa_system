@@ -1,38 +1,27 @@
 <?php
-/**
- * Homepage - Display all questions/posts
- */
-
 session_start();
 
-// Include required files
 require_once 'modules/posts.php';
 require_once 'modules/users.php';
 require_once 'modules/modules.php';
 
-// Set page title
 $pageTitle = 'Home';
 
-// Get posts with pagination
 $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
 $postsPerPage = 10;
 $offset = ($page - 1) * $postsPerPage;
 
-// Get all posts
 $posts = getAllPosts();
 $totalPosts = count($posts);
 $totalPages = ceil($totalPosts / $postsPerPage);
 
-// Get posts for current page
 $currentPosts = array_slice($posts, $offset, $postsPerPage);
 
-// Include header
 include 'includes/header.php';
 ?>
 
 <div class="row">
     <div class="col-lg-8">
-        <!-- Page Header -->
         <div class="card mb-4">
             <div class="card-body">
                 <h1 class="card-title mb-3">
@@ -40,7 +29,7 @@ include 'includes/header.php';
                     Student Questions & Answers
                 </h1>
                 <p class="card-text lead">
-                    Welcome to our student Q&A platform! Browse questions from fellow students, 
+                    Welcome to our student Q&A platform! Browse questions from fellow students,
                     share your knowledge, or ask your own questions to get help with coursework.
                 </p>
                 <div class="d-flex gap-2">
@@ -54,7 +43,6 @@ include 'includes/header.php';
             </div>
         </div>
 
-        <!-- Posts List -->
         <?php if (empty($currentPosts)): ?>
             <div class="card">
                 <div class="card-body text-center py-5">
@@ -72,14 +60,14 @@ include 'includes/header.php';
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-start mb-3">
                             <h5 class="card-title mb-2">
-                                <a href="view_post.php?id=<?php echo $post['post_id']; ?>" 
-                                   class="text-decoration-none">
+                                <a href="view_post.php?id=<?php echo $post['post_id']; ?>"
+                                    class="text-decoration-none">
                                     <?php echo htmlspecialchars($post['title']); ?>
                                 </a>
                             </h5>
                             <div class="dropdown">
-                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" 
-                                        type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                                 <ul class="dropdown-menu">
@@ -89,30 +77,30 @@ include 'includes/header.php';
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item text-danger" 
-                                           href="delete_post.php?id=<?php echo $post['post_id']; ?>"
-                                           data-confirm-delete="Are you sure you want to delete this question?">
+                                        <a class="dropdown-item text-danger"
+                                            href="delete_post.php?id=<?php echo $post['post_id']; ?>"
+                                            data-confirm-delete="Are you sure you want to delete this question?">
                                             <i class="bi bi-trash-fill me-2"></i>Delete
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        
+
                         <div class="post-content mb-3">
-                            <?php 
+                            <?php
                             $content = htmlspecialchars($post['content']);
                             echo strlen($content) > 200 ? substr($content, 0, 200) . '...' : $content;
                             ?>
                         </div>
-                        
+
                         <?php if ($post['image_path']): ?>
                             <div class="mb-3">
-                                <img src="<?php echo htmlspecialchars($post['image_path']); ?>" 
-                                     alt="Post image" class="img-fluid rounded" style="max-height: 200px;">
+                                <img src="<?php echo htmlspecialchars($post['image_path']); ?>"
+                                    alt="Post image" class="img-fluid rounded" style="max-height: 200px;">
                             </div>
                         <?php endif; ?>
-                        
+
                         <div class="post-meta d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center gap-3">
                                 <span class="text-muted">
@@ -131,10 +119,10 @@ include 'includes/header.php';
                                 </span>
                             </div>
                         </div>
-                        
+
                         <div class="mt-3">
-                            <a href="view_post.php?id=<?php echo $post['post_id']; ?>" 
-                               class="btn btn-outline-primary btn-sm">
+                            <a href="view_post.php?id=<?php echo $post['post_id']; ?>"
+                                class="btn btn-outline-primary btn-sm">
                                 <i class="bi bi-eye-fill me-1"></i>View Full Question
                             </a>
                         </div>
@@ -142,7 +130,6 @@ include 'includes/header.php';
                 </div>
             <?php endforeach; ?>
 
-            <!-- Pagination -->
             <?php if ($totalPages > 1): ?>
                 <nav aria-label="Posts pagination" class="mt-4">
                     <ul class="pagination justify-content-center">
@@ -153,13 +140,13 @@ include 'includes/header.php';
                                 </a>
                             </li>
                         <?php endif; ?>
-                        
+
                         <?php for ($i = max(1, $page - 2); $i <= min($totalPages, $page + 2); $i++): ?>
                             <li class="page-item <?php echo $i == $page ? 'active' : ''; ?>">
                                 <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
                             </li>
                         <?php endfor; ?>
-                        
+
                         <?php if ($page < $totalPages): ?>
                             <li class="page-item">
                                 <a class="page-link" href="?page=<?php echo $page + 1; ?>" aria-label="Next">
@@ -173,9 +160,7 @@ include 'includes/header.php';
         <?php endif; ?>
     </div>
 
-    <!-- Sidebar -->
     <div class="col-lg-4">
-        <!-- Quick Stats -->
         <div class="card mb-4">
             <div class="card-header">
                 <h6 class="mb-0">
@@ -204,7 +189,6 @@ include 'includes/header.php';
             </div>
         </div>
 
-        <!-- Popular Modules -->
         <div class="card mb-4">
             <div class="card-header">
                 <h6 class="mb-0">
@@ -213,7 +197,6 @@ include 'includes/header.php';
             </div>
             <div class="card-body">
                 <?php
-                // Get module post counts
                 $moduleStats = [];
                 foreach ($allModules as $module) {
                     $postCount = 0;
@@ -229,15 +212,14 @@ include 'includes/header.php';
                         ];
                     }
                 }
-                
-                // Sort by post count
-                usort($moduleStats, function($a, $b) {
+
+                usort($moduleStats, function ($a, $b) {
                     return $b['count'] - $a['count'];
                 });
-                
+
                 $topModules = array_slice($moduleStats, 0, 5);
                 ?>
-                
+
                 <?php if (empty($topModules)): ?>
                     <p class="text-muted mb-0">No questions posted yet.</p>
                 <?php else: ?>
@@ -254,7 +236,6 @@ include 'includes/header.php';
             </div>
         </div>
 
-        <!-- Recent Activity -->
         <div class="card">
             <div class="card-header">
                 <h6 class="mb-0">
@@ -269,13 +250,13 @@ include 'includes/header.php';
                     <?php foreach ($recentPosts as $recentPost): ?>
                         <div class="mb-3 pb-3 border-bottom">
                             <div class="small">
-                                <a href="view_post.php?id=<?php echo $recentPost['post_id']; ?>" 
-                                   class="text-decoration-none fw-bold">
+                                <a href="view_post.php?id=<?php echo $recentPost['post_id']; ?>"
+                                    class="text-decoration-none fw-bold">
                                     <?php echo htmlspecialchars(substr($recentPost['title'], 0, 50)) . (strlen($recentPost['title']) > 50 ? '...' : ''); ?>
                                 </a>
                             </div>
                             <div class="small text-muted">
-                                by <?php echo htmlspecialchars($recentPost['username']); ?> 
+                                by <?php echo htmlspecialchars($recentPost['username']); ?>
                                 • <?php echo date('M j', strtotime($recentPost['created_at'])); ?>
                             </div>
                         </div>

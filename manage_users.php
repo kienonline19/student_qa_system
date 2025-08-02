@@ -1,32 +1,24 @@
 <?php
-/**
- * Manage Users Page - CRUD operations for users
- */
-
 session_start();
 
-// Include required files
 require_once 'modules/users.php';
 require_once 'includes/validation.php';
 
-// Set page title
 $pageTitle = 'Manage Users';
 
-// Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Verify CSRF token
     if (!isset($_POST['csrf_token']) || !verifyCSRFToken($_POST['csrf_token'])) {
         $_SESSION['error_message'] = "Invalid form submission. Please try again.";
     } else {
         $action = $_POST['action'] ?? '';
-        
+
         switch ($action) {
             case 'add':
                 $formData = [
                     'username' => sanitizeInput($_POST['username'] ?? ''),
                     'email' => sanitizeInput($_POST['email'] ?? '')
                 ];
-                
+
                 $validation = validateUserData($formData);
                 if ($validation['success']) {
                     $userId = createUser($formData['username'], $formData['email']);
@@ -39,14 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['error_message'] = implode('<br>', $validation['errors']);
                 }
                 break;
-                
+
             case 'edit':
                 $userId = intval($_POST['user_id'] ?? 0);
                 $formData = [
                     'username' => sanitizeInput($_POST['username'] ?? ''),
                     'email' => sanitizeInput($_POST['email'] ?? '')
                 ];
-                
+
                 $validation = validateUserData($formData, $userId);
                 if ($validation['success']) {
                     $success = updateUser($userId, $formData['username'], $formData['email']);
@@ -59,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['error_message'] = implode('<br>', $validation['errors']);
                 }
                 break;
-                
+
             case 'delete':
                 $userId = intval($_POST['user_id'] ?? 0);
                 if ($userId > 0) {
@@ -73,19 +65,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 break;
         }
     }
-    
-    // Redirect to prevent form resubmission
+
     header("Location: manage_users.php");
     exit;
 }
 
-// Get all users
 $users = getAllUsers();
 
-// Generate CSRF token
 $csrfToken = generateCSRFToken();
 
-// Include header
 include 'includes/header.php';
 ?>
 
@@ -135,7 +123,7 @@ include 'includes/header.php';
                                         <td><?php echo htmlspecialchars($user['email']); ?></td>
                                         <td><?php echo date('M j, Y', strtotime($user['created_at'])); ?></td>
                                         <td>
-                                            <?php 
+                                            <?php
                                             if ($user['updated_at'] !== $user['created_at']) {
                                                 echo date('M j, Y', strtotime($user['updated_at']));
                                             } else {
@@ -145,12 +133,12 @@ include 'includes/header.php';
                                         </td>
                                         <td>
                                             <div class="btn-group btn-group-sm">
-                                                <button class="btn btn-outline-primary" 
-                                                        onclick="editUser(<?php echo htmlspecialchars(json_encode($user)); ?>)">
+                                                <button class="btn btn-outline-primary"
+                                                    onclick="editUser(<?php echo htmlspecialchars(json_encode($user)); ?>)">
                                                     <i class="bi bi-pencil-fill"></i>
                                                 </button>
-                                                <button class="btn btn-outline-danger" 
-                                                        onclick="deleteUser(<?php echo $user['user_id']; ?>, '<?php echo htmlspecialchars($user['username']); ?>')">
+                                                <button class="btn btn-outline-danger"
+                                                    onclick="deleteUser(<?php echo $user['user_id']; ?>, '<?php echo htmlspecialchars($user['username']); ?>')">
                                                     <i class="bi bi-trash-fill"></i>
                                                 </button>
                                             </div>
@@ -160,7 +148,7 @@ include 'includes/header.php';
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div class="mt-3">
                         <small class="text-muted">
                             Total Users: <?php echo count($users); ?>
@@ -172,7 +160,6 @@ include 'includes/header.php';
     </div>
 </div>
 
-<!-- Add User Modal -->
 <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -184,22 +171,22 @@ include 'includes/header.php';
                 <div class="modal-body">
                     <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                     <input type="hidden" name="action" value="add">
-                    
+
                     <div class="mb-3">
                         <label for="add_username" class="form-label">Username *</label>
-                        <input type="text" class="form-control" id="add_username" name="username" 
-                               required minlength="3" maxlength="50" pattern="[a-zA-Z0-9_]+"
-                               placeholder="Enter username">
+                        <input type="text" class="form-control" id="add_username" name="username"
+                            required minlength="3" maxlength="50" pattern="[a-zA-Z0-9_]+"
+                            placeholder="Enter username">
                         <div class="invalid-feedback">
                             Username must be 3-50 characters long and contain only letters, numbers, and underscores.
                         </div>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label for="add_email" class="form-label">Email Address *</label>
-                        <input type="email" class="form-control" id="add_email" name="email" 
-                               required maxlength="100"
-                               placeholder="Enter email address">
+                        <input type="email" class="form-control" id="add_email" name="email"
+                            required maxlength="100"
+                            placeholder="Enter email address">
                         <div class="invalid-feedback">
                             Please provide a valid email address.
                         </div>
@@ -218,7 +205,6 @@ include 'includes/header.php';
     </div>
 </div>
 
-<!-- Edit User Modal -->
 <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -231,20 +217,20 @@ include 'includes/header.php';
                     <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                     <input type="hidden" name="action" value="edit">
                     <input type="hidden" name="user_id" id="edit_user_id">
-                    
+
                     <div class="mb-3">
                         <label for="edit_username" class="form-label">Username *</label>
-                        <input type="text" class="form-control" id="edit_username" name="username" 
-                               required minlength="3" maxlength="50" pattern="[a-zA-Z0-9_]+">
+                        <input type="text" class="form-control" id="edit_username" name="username"
+                            required minlength="3" maxlength="50" pattern="[a-zA-Z0-9_]+">
                         <div class="invalid-feedback">
                             Username must be 3-50 characters long and contain only letters, numbers, and underscores.
                         </div>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label for="edit_email" class="form-label">Email Address *</label>
-                        <input type="email" class="form-control" id="edit_email" name="email" 
-                               required maxlength="100">
+                        <input type="email" class="form-control" id="edit_email" name="email"
+                            required maxlength="100">
                         <div class="invalid-feedback">
                             Please provide a valid email address.
                         </div>
@@ -263,7 +249,6 @@ include 'includes/header.php';
     </div>
 </div>
 
-<!-- Delete User Modal -->
 <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -276,12 +261,12 @@ include 'includes/header.php';
                     <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
                     <input type="hidden" name="action" value="delete">
                     <input type="hidden" name="user_id" id="delete_user_id">
-                    
+
                     <div class="alert alert-warning">
                         <i class="bi bi-exclamation-triangle-fill me-2"></i>
                         <strong>Warning!</strong> This action cannot be undone.
                     </div>
-                    
+
                     <p>Are you sure you want to delete the user <strong id="delete_username"></strong>?</p>
                     <p class="text-muted small">
                         Note: If this user has posted questions, the deletion may fail due to database constraints.
@@ -301,70 +286,68 @@ include 'includes/header.php';
 </div>
 
 <script>
-function editUser(user) {
-    document.getElementById('edit_user_id').value = user.user_id;
-    document.getElementById('edit_username').value = user.username;
-    document.getElementById('edit_email').value = user.email;
-    
-    const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
-    modal.show();
-}
+    function editUser(user) {
+        document.getElementById('edit_user_id').value = user.user_id;
+        document.getElementById('edit_username').value = user.username;
+        document.getElementById('edit_email').value = user.email;
 
-function deleteUser(userId, username) {
-    document.getElementById('delete_user_id').value = userId;
-    document.getElementById('delete_username').textContent = username;
-    
-    const modal = new bootstrap.Modal(document.getElementById('deleteUserModal'));
-    modal.show();
-}
-
-// Form validation
-(function() {
-    'use strict';
-    window.addEventListener('load', function() {
-        var forms = document.getElementsByClassName('needs-validation');
-        var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-        });
-    }, false);
-})();
-
-// Real-time username validation
-document.getElementById('add_username').addEventListener('input', function() {
-    const username = this.value;
-    const pattern = /^[a-zA-Z0-9_]+$/;
-    
-    if (username.length >= 3 && username.length <= 50 && pattern.test(username)) {
-        this.classList.remove('is-invalid');
-        this.classList.add('is-valid');
-    } else {
-        this.classList.remove('is-valid');
-        if (username.length > 0) {
-            this.classList.add('is-invalid');
-        }
+        const modal = new bootstrap.Modal(document.getElementById('editUserModal'));
+        modal.show();
     }
-});
 
-document.getElementById('edit_username').addEventListener('input', function() {
-    const username = this.value;
-    const pattern = /^[a-zA-Z0-9_]+$/;
-    
-    if (username.length >= 3 && username.length <= 50 && pattern.test(username)) {
-        this.classList.remove('is-invalid');
-        this.classList.add('is-valid');
-    } else {
-        this.classList.remove('is-valid');
-        if (username.length > 0) {
-            this.classList.add('is-invalid');
-        }
+    function deleteUser(userId, username) {
+        document.getElementById('delete_user_id').value = userId;
+        document.getElementById('delete_username').textContent = username;
+
+        const modal = new bootstrap.Modal(document.getElementById('deleteUserModal'));
+        modal.show();
     }
-});
+
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+
+    document.getElementById('add_username').addEventListener('input', function() {
+        const username = this.value;
+        const pattern = /^[a-zA-Z0-9_]+$/;
+
+        if (username.length >= 3 && username.length <= 50 && pattern.test(username)) {
+            this.classList.remove('is-invalid');
+            this.classList.add('is-valid');
+        } else {
+            this.classList.remove('is-valid');
+            if (username.length > 0) {
+                this.classList.add('is-invalid');
+            }
+        }
+    });
+
+    document.getElementById('edit_username').addEventListener('input', function() {
+        const username = this.value;
+        const pattern = /^[a-zA-Z0-9_]+$/;
+
+        if (username.length >= 3 && username.length <= 50 && pattern.test(username)) {
+            this.classList.remove('is-invalid');
+            this.classList.add('is-valid');
+        } else {
+            this.classList.remove('is-valid');
+            if (username.length > 0) {
+                this.classList.add('is-invalid');
+            }
+        }
+    });
 </script>
 
 <?php include 'includes/footer.php'; ?>

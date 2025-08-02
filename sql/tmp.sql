@@ -1,10 +1,7 @@
--- Student Q&A System Database Schema
--- Drop database if exists and create new one
 DROP DATABASE IF EXISTS student_qa_system;
 CREATE DATABASE student_qa_system;
 USE student_qa_system;
 
--- Users table
 CREATE TABLE users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -13,7 +10,6 @@ CREATE TABLE users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Modules table
 CREATE TABLE modules (
     module_id INT PRIMARY KEY AUTO_INCREMENT,
     module_code VARCHAR(20) NOT NULL UNIQUE,
@@ -22,7 +18,6 @@ CREATE TABLE modules (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Posts table
 CREATE TABLE posts (
     post_id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(200) NOT NULL,
@@ -36,7 +31,6 @@ CREATE TABLE posts (
     FOREIGN KEY (module_id) REFERENCES modules(module_id) ON DELETE CASCADE
 );
 
--- Contact messages table
 CREATE TABLE contact_messages (
     message_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
@@ -46,7 +40,6 @@ CREATE TABLE contact_messages (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Insert sample data for testing
 INSERT INTO users (username, email) VALUES
 ('john_doe', 'john.doe@student.ac.uk'),
 ('jane_smith', 'jane.smith@student.ac.uk'),

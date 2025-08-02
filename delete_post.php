@@ -1,15 +1,9 @@
 <?php
-/**
- * Delete Post Page - Handle post deletion
- */
-
 session_start();
 
-// Include required files
 require_once 'modules/posts.php';
 require_once 'includes/validation.php';
 
-// Get post ID from URL
 $postId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($postId <= 0) {
@@ -18,7 +12,6 @@ if ($postId <= 0) {
     exit;
 }
 
-// Get post data for confirmation
 $post = getPostById($postId);
 
 if (!$post) {
@@ -27,20 +20,16 @@ if (!$post) {
     exit;
 }
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Verify CSRF token
     if (!isset($_POST['csrf_token']) || !verifyCSRFToken($_POST['csrf_token'])) {
         $_SESSION['error_message'] = "Invalid form submission. Please try again.";
         header("Location: view_post.php?id=" . $postId);
         exit;
     }
-    
-    // Confirm deletion
+
     if (isset($_POST['confirm_delete']) && $_POST['confirm_delete'] === 'yes') {
-        // Delete the post
         $success = deletePost($postId);
-        
+
         if ($success) {
             $_SESSION['success_message'] = "Question deleted successfully.";
             header("Location: index.php");
@@ -51,20 +40,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
     } else {
-        // User cancelled deletion
         $_SESSION['error_message'] = "Question deletion cancelled.";
         header("Location: view_post.php?id=" . $postId);
         exit;
     }
 }
 
-// Generate CSRF token
 $csrfToken = generateCSRFToken();
 
-// Set page title
 $pageTitle = 'Delete Question';
 
-// Include header
 include 'includes/header.php';
 ?>
 
@@ -83,8 +68,7 @@ include 'includes/header.php';
                 </div>
 
                 <h5>Are you sure you want to delete this question?</h5>
-                
-                <!-- Question Preview -->
+
                 <div class="card mt-3 mb-4">
                     <div class="card-header">
                         <h6 class="mb-0">Question to be deleted:</h6>
@@ -92,7 +76,7 @@ include 'includes/header.php';
                     <div class="card-body">
                         <h6 class="card-title"><?php echo htmlspecialchars($post['title']); ?></h6>
                         <p class="card-text">
-                            <?php 
+                            <?php
                             $content = htmlspecialchars($post['content']);
                             echo strlen($content) > 150 ? substr($content, 0, 150) . '...' : $content;
                             ?>
@@ -110,11 +94,11 @@ include 'includes/header.php';
                                 <?php echo htmlspecialchars($post['module_code']); ?>
                             </span>
                         </div>
-                        
+
                         <?php if ($post['image_path'] && file_exists($post['image_path'])): ?>
                             <div class="mt-3">
-                                <img src="<?php echo htmlspecialchars($post['image_path']); ?>" 
-                                     alt="Question image" class="img-fluid rounded" style="max-height: 100px;">
+                                <img src="<?php echo htmlspecialchars($post['image_path']); ?>"
+                                    alt="Question image" class="img-fluid rounded" style="max-height: 100px;">
                                 <div class="small text-muted mt-1">
                                     <i class="bi bi-image-fill me-1"></i>
                                     This image will also be deleted
@@ -124,10 +108,9 @@ include 'includes/header.php';
                     </div>
                 </div>
 
-                <!-- Deletion Form -->
                 <form method="POST">
                     <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
-                    
+
                     <div class="mb-3">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="understand" required>
@@ -150,8 +133,8 @@ include 'includes/header.php';
                             <button type="button" class="btn btn-secondary me-2" onclick="cancelDeletion()">
                                 <i class="bi bi-x-circle me-2"></i>Cancel
                             </button>
-                            <button type="submit" name="confirm_delete" value="yes" 
-                                    class="btn btn-danger" id="deleteBtn" disabled>
+                            <button type="submit" name="confirm_delete" value="yes"
+                                class="btn btn-danger" id="deleteBtn" disabled>
                                 <i class="bi bi-trash-fill me-2"></i>Delete Question
                             </button>
                         </div>
@@ -160,7 +143,6 @@ include 'includes/header.php';
             </div>
         </div>
 
-        <!-- Additional Information -->
         <div class="card mt-4">
             <div class="card-header">
                 <h6 class="mb-0">
@@ -196,55 +178,49 @@ include 'includes/header.php';
 </div>
 
 <script>
-// Enable delete button only when checkbox is checked
-document.getElementById('understand').addEventListener('change', function() {
-    document.getElementById('deleteBtn').disabled = !this.checked;
-});
+    document.getElementById('understand').addEventListener('change', function() {
+        document.getElementById('deleteBtn').disabled = !this.checked;
+    });
 
-// Cancel deletion function
-function cancelDeletion() {
-    if (confirm('Are you sure you want to cancel? You will return to the question.')) {
-        window.location.href = 'view_post.php?id=<?php echo $postId; ?>';
+    function cancelDeletion() {
+        if (confirm('Are you sure you want to cancel? You will return to the question.')) {
+            window.location.href = 'view_post.php?id=<?php echo $postId; ?>';
+        }
     }
-}
 
-// Add extra confirmation for delete button
-document.getElementById('deleteBtn').addEventListener('click', function(e) {
-    if (!confirm('FINAL CONFIRMATION: Are you absolutely sure you want to delete this question? This action CANNOT be undone.')) {
+    document.getElementById('deleteBtn').addEventListener('click', function(e) {
+        if (!confirm('FINAL CONFIRMATION: Are you absolutely sure you want to delete this question? This action CANNOT be undone.')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    document.querySelector('form').addEventListener('submit', function() {
+        const deleteBtn = document.getElementById('deleteBtn');
+        deleteBtn.disabled = true;
+        deleteBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Deleting...';
+    });
+
+    window.addEventListener('beforeunload', function(e) {
         e.preventDefault();
-        return false;
-    }
-});
-
-// Handle form submission with loading state
-document.querySelector('form').addEventListener('submit', function() {
-    const deleteBtn = document.getElementById('deleteBtn');
-    deleteBtn.disabled = true;
-    deleteBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Deleting...';
-});
-
-// Prevent accidental navigation away
-window.addEventListener('beforeunload', function(e) {
-    e.preventDefault();
-    e.returnValue = '';
-});
+        e.returnValue = '';
+    });
 </script>
 
 <style>
-/* Additional styles for delete confirmation */
-.card.border-danger {
-    box-shadow: 0 0 15px rgba(220, 53, 69, 0.3);
-}
+    .card.border-danger {
+        box-shadow: 0 0 15px rgba(220, 53, 69, 0.3);
+    }
 
-.btn-danger:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
+    .btn-danger:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
 
-#deleteBtn:not(:disabled):hover {
-    background-color: #c82333;
-    border-color: #bd2130;
-}
+    #deleteBtn:not(:disabled):hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+    }
 </style>
 
 <?php include 'includes/footer.php'; ?>

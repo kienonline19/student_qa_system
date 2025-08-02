@@ -1,22 +1,13 @@
 <?php
-/**
- * Manage Modules Page - CRUD operations for modules
- * Student Q&A System - COMP1841 Coursework
- */
-
 session_start();
 
-// Include required files
 require_once 'modules/modules.php';
-require_once 'modules/posts.php';  // For getModulePostCount()
+require_once 'modules/posts.php';
 require_once 'includes/validation.php';
 
-// Set page title
 $pageTitle = 'Manage Modules';
 
-// Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Verify CSRF token
     if (!isset($_POST['csrf_token']) || !verifyCSRFToken($_POST['csrf_token'])) {
         $_SESSION['error_message'] = "Invalid form submission. Please try again.";
     } else {
@@ -76,12 +67,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     
-    // Redirect to prevent form resubmission
     header("Location: manage_modules.php");
     exit;
 }
 
-// Get all modules with post counts
 $modules = getAllModules();
 $modulesWithCounts = [];
 
@@ -90,10 +79,8 @@ foreach ($modules as $module) {
     $modulesWithCounts[] = $module;
 }
 
-// Generate CSRF token
 $csrfToken = generateCSRFToken();
 
-// Include header
 include 'includes/header.php';
 ?>
 
@@ -198,7 +185,6 @@ include 'includes/header.php';
     </div>
 </div>
 
-<!-- Add Module Modal -->
 <div class="modal fade" id="addModuleModal" tabindex="-1" aria-labelledby="addModuleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -247,7 +233,6 @@ include 'includes/header.php';
     </div>
 </div>
 
-<!-- Edit Module Modal -->
 <div class="modal fade" id="editModuleModal" tabindex="-1" aria-labelledby="editModuleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -293,7 +278,6 @@ include 'includes/header.php';
     </div>
 </div>
 
-<!-- Delete Module Modal -->
 <div class="modal fade" id="deleteModuleModal" tabindex="-1" aria-labelledby="deleteModuleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -357,7 +341,6 @@ function deleteModule(moduleId, moduleCode, postCount) {
     modal.show();
 }
 
-// Form validation
 (function() {
     'use strict';
     window.addEventListener('load', function() {
@@ -374,7 +357,6 @@ function deleteModule(moduleId, moduleCode, postCount) {
     }, false);
 })();
 
-// Auto-uppercase module codes
 document.getElementById('add_module_code').addEventListener('input', function() {
     this.value = this.value.toUpperCase();
     validateModuleCode(this);
@@ -400,7 +382,6 @@ function validateModuleCode(input) {
     }
 }
 
-// Module name validation
 document.getElementById('add_module_name').addEventListener('input', function() {
     validateModuleName(this);
 });
@@ -423,7 +404,6 @@ function validateModuleName(input) {
     }
 }
 
-// Confirmation before deleting modules with questions
 document.getElementById('deleteModuleModal').addEventListener('show.bs.modal', function(event) {
     const deleteButton = this.querySelector('button[type="submit"]');
     const warningText = document.getElementById('delete_warning_text');
@@ -432,7 +412,6 @@ document.getElementById('deleteModuleModal').addEventListener('show.bs.modal', f
         deleteButton.classList.add('disabled');
         deleteButton.innerHTML = '<i class="bi bi-exclamation-triangle me-2"></i>Cannot Delete';
         
-        // Re-enable after 3 seconds to allow force delete if needed
         setTimeout(() => {
             deleteButton.classList.remove('disabled');
             deleteButton.innerHTML = '<i class="bi bi-trash-fill me-2"></i>Force Delete';
@@ -443,7 +422,6 @@ document.getElementById('deleteModuleModal').addEventListener('show.bs.modal', f
     }
 });
 
-// Enhanced form submission with loading states
 document.querySelectorAll('form').forEach(form => {
     form.addEventListener('submit', function() {
         const submitBtn = this.querySelector('button[type="submit"]');
@@ -452,7 +430,6 @@ document.querySelectorAll('form').forEach(form => {
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
             
-            // Restore button if form validation fails
             setTimeout(() => {
                 if (submitBtn.disabled) {
                     submitBtn.disabled = false;

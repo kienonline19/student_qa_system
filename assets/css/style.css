@@ -1,986 +1,996 @@
-/* Student Q&A System Custom Styles - Stack Overflow Inspired */
-
-/* Stack Overflow Color Palette */
 :root {
-    --so-orange: #f48024;
-    --so-orange-dark: #da670b;
-    --so-blue: #0074cc;
-    --so-blue-dark: #0063bf;
-    --so-green: #5eba7d;
-    --so-red: #d1383d;
-    --so-yellow: #fff8dc;
-    --so-gray-50: #fafafb;
-    --so-gray-100: #f1f2f3;
-    --so-gray-200: #e3e6e8;
-    --so-gray-300: #d6d9dc;
-    --so-gray-400: #9fa6ad;
-    --so-gray-500: #6a737c;
-    --so-gray-600: #525960;
-    --so-gray-700: #3b4045;
-    --so-gray-800: #2f3337;
-    --so-gray-900: #232629;
-    --so-white: #ffffff;
-    --so-black: #0c0d0e;
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 1px 3px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --so-orange: #f48024;
+  --so-orange-dark: #da670b;
+  --so-blue: #0074cc;
+  --so-blue-dark: #0063bf;
+  --so-green: #5eba7d;
+  --so-red: #d1383d;
+  --so-yellow: #fff8dc;
+  --so-gray-50: #fafafb;
+  --so-gray-100: #f1f2f3;
+  --so-gray-200: #e3e6e8;
+  --so-gray-300: #d6d9dc;
+  --so-gray-400: #9fa6ad;
+  --so-gray-500: #6a737c;
+  --so-gray-600: #525960;
+  --so-gray-700: #3b4045;
+  --so-gray-800: #2f3337;
+  --so-gray-900: #232629;
+  --so-white: #ffffff;
+  --so-black: #0c0d0e;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Skip Link for Accessibility */
 .skip-link {
-    position: absolute;
-    top: -40px;
-    left: 6px;
-    background: var(--so-gray-800);
-    color: var(--so-white);
-    padding: 8px 12px;
-    text-decoration: none;
-    z-index: 1000;
-    border-radius: 3px;
-    font-weight: 500;
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--so-gray-800);
+  color: var(--so-white);
+  padding: 8px 12px;
+  text-decoration: none;
+  z-index: 1000;
+  border-radius: 3px;
+  font-weight: 500;
 }
 
 .skip-link:focus {
-    top: 0;
+  top: 0;
 }
 
-/* Body and Layout */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI", "Liberation Sans", sans-serif;
-    line-height: 1.5;
-    background-color: var(--so-gray-50);
-    color: var(--so-black);
-    font-size: 13px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted",
+    "Segoe UI", "Liberation Sans", sans-serif;
+  line-height: 1.5;
+  background-color: var(--so-gray-50);
+  color: var(--so-black);
+  font-size: 13px;
 }
 
-/* Content wrapper */
 main.container {
-    background: var(--so-white);
-    border-radius: 0;
-    box-shadow: none;
-    margin-top: 0;
-    padding: 24px;
-    min-height: calc(100vh - 200px);
+  background: var(--so-white);
+  border-radius: 0;
+  box-shadow: none;
+  margin-top: 0;
+  padding: 24px;
+  min-height: calc(100vh - 200px);
 }
 
-/* Navigation - Stack Overflow Style */
 .navbar {
-    background-color: var(--so-gray-700) !important;
-    border-bottom: 3px solid var(--so-orange);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    padding: 8px 0;
+  background-color: var(--so-gray-700) !important;
+  border-bottom: 3px solid var(--so-orange);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  padding: 8px 0;
 }
 
 .navbar-brand {
-    font-size: 17px;
-    font-weight: 700;
-    color: var(--so-white) !important;
-    letter-spacing: -0.2px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--so-white) !important;
+  letter-spacing: -0.2px;
 }
 
 .navbar-nav .nav-link {
-    font-weight: 400;
-    font-size: 13px;
-    transition: all 0.2s ease;
-    color: rgba(255, 255, 255, 0.9) !important;
-    border-radius: 3px;
-    margin: 0 2px;
-    padding: 6px 12px !important;
+  font-weight: 400;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  color: rgba(255, 255, 255, 0.9) !important;
+  border-radius: 3px;
+  margin: 0 2px;
+  padding: 6px 12px !important;
 }
 
 .navbar-nav .nav-link:hover {
-    background-color: var(--so-gray-600);
-    color: var(--so-white) !important;
+  background-color: var(--so-gray-600);
+  color: var(--so-white) !important;
 }
 
 .navbar-nav .nav-link.active {
-    background-color: var(--so-orange);
-    color: var(--so-white) !important;
+  background-color: var(--so-orange);
+  color: var(--so-white) !important;
 }
 
-/* Search Form */
 .navbar .form-control {
-    background-color: var(--so-white);
-    border: 1px solid var(--so-gray-300);
-    color: var(--so-black);
-    border-radius: 3px;
-    padding: 6px 12px;
-    font-size: 13px;
+  background-color: var(--so-white);
+  border: 1px solid var(--so-gray-300);
+  color: var(--so-black);
+  border-radius: 3px;
+  padding: 6px 12px;
+  font-size: 13px;
 }
 
 .navbar .form-control::placeholder {
-    color: var(--so-gray-500);
+  color: var(--so-gray-500);
 }
 
 .navbar .form-control:focus {
-    border-color: var(--so-blue);
-    box-shadow: 0 0 0 3px rgba(0, 116, 204, 0.1);
+  border-color: var(--so-blue);
+  box-shadow: 0 0 0 3px rgba(0, 116, 204, 0.1);
 }
 
 .navbar .btn-outline-light {
-    border: 1px solid var(--so-gray-300);
-    background-color: var(--so-white);
-    color: var(--so-gray-700);
-    border-radius: 3px;
-    padding: 6px 12px;
+  border: 1px solid var(--so-gray-300);
+  background-color: var(--so-white);
+  color: var(--so-gray-700);
+  border-radius: 3px;
+  padding: 6px 12px;
 }
 
 .navbar .btn-outline-light:hover {
-    background-color: var(--so-gray-100);
-    border-color: var(--so-gray-400);
-    color: var(--so-gray-800);
+  background-color: var(--so-gray-100);
+  border-color: var(--so-gray-400);
+  color: var(--so-gray-800);
 }
 
-/* Cards - Stack Overflow Style */
 .card {
-    border: 1px solid var(--so-gray-300);
-    background-color: var(--so-white);
-    border-radius: 3px;
-    box-shadow: none;
-    transition: all 0.15s ease;
-    overflow: visible;
+  border: 1px solid var(--so-gray-300);
+  background-color: var(--so-white);
+  border-radius: 3px;
+  box-shadow: none;
+  transition: all 0.15s ease;
+  overflow: visible;
 }
 
 .card:hover {
-    transform: none;
-    box-shadow: var(--shadow-md);
+  transform: none;
+  box-shadow: var(--shadow-md);
 }
 
 .card-header {
-    background-color: var(--so-gray-100);
-    color: var(--so-black);
-    border-bottom: 1px solid var(--so-gray-300);
-    font-weight: 600;
-    border-radius: 3px 3px 0 0;
-    padding: 12px 16px;
-    font-size: 15px;
+  background-color: var(--so-gray-100);
+  color: var(--so-black);
+  border-bottom: 1px solid var(--so-gray-300);
+  font-weight: 600;
+  border-radius: 3px 3px 0 0;
+  padding: 12px 16px;
+  font-size: 15px;
 }
 
-.card-header h1, .card-header h2, .card-header h3, 
-.card-header h4, .card-header h5, .card-header h6 {
-    color: var(--so-black);
-    margin-bottom: 0;
+.card-header h1,
+.card-header h2,
+.card-header h3,
+.card-header h4,
+.card-header h5,
+.card-header h6 {
+  color: var(--so-black);
+  margin-bottom: 0;
 }
 
-/* Post Cards */
 .post-card {
-    margin-bottom: 16px;
-    background-color: var(--so-white);
-    border-left: 3px solid var(--so-orange);
+  margin-bottom: 16px;
+  background-color: var(--so-white);
+  border-left: 3px solid var(--so-orange);
 }
 
 .post-card .card-body {
-    padding: 16px;
+  padding: 16px;
 }
 
 .post-meta {
-    font-size: 12px;
-    color: var(--so-gray-500);
+  font-size: 12px;
+  color: var(--so-gray-500);
 }
 
 .post-meta .badge {
-    font-size: 11px;
-    background-color: var(--so-blue);
-    color: var(--so-white);
-    border: none;
-    padding: 4px 8px;
-    border-radius: 3px;
-    font-weight: 400;
+  font-size: 11px;
+  background-color: var(--so-blue);
+  color: var(--so-white);
+  border: none;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-weight: 400;
 }
 
 .post-content {
-    line-height: 1.5;
-    color: var(--so-black);
-    font-size: 15px;
+  line-height: 1.5;
+  color: var(--so-black);
+  font-size: 15px;
 }
 
 .post-content img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 3px;
-    margin: 12px 0;
-    box-shadow: var(--shadow-sm);
+  max-width: 100%;
+  height: auto;
+  border-radius: 3px;
+  margin: 12px 0;
+  box-shadow: var(--shadow-sm);
 }
 
-/* Buttons - Stack Overflow Style */
 .btn {
-    font-weight: 400;
-    border-radius: 3px;
-    transition: all 0.1s ease;
-    padding: 8px 12px;
-    border: 1px solid;
-    font-size: 13px;
-    line-height: 1.15384615;
+  font-weight: 400;
+  border-radius: 3px;
+  transition: all 0.1s ease;
+  padding: 8px 12px;
+  border: 1px solid;
+  font-size: 13px;
+  line-height: 1.15384615;
 }
 
 .btn:hover {
-    transform: none;
-    box-shadow: none;
+  transform: none;
+  box-shadow: none;
 }
 
 .btn-primary {
-    background-color: var(--so-blue);
-    border-color: var(--so-blue-dark);
-    color: var(--so-white);
+  background-color: var(--so-blue);
+  border-color: var(--so-blue-dark);
+  color: var(--so-white);
 }
 
 .btn-primary:hover {
-    background-color: var(--so-blue-dark);
-    border-color: var(--so-blue-dark);
-    color: var(--so-white);
+  background-color: var(--so-blue-dark);
+  border-color: var(--so-blue-dark);
+  color: var(--so-white);
 }
 
 .btn-success {
-    background-color: var(--so-green);
-    border-color: #4a9b5e;
-    color: var(--so-white);
+  background-color: var(--so-green);
+  border-color: #4a9b5e;
+  color: var(--so-white);
 }
 
 .btn-success:hover {
-    background-color: #4a9b5e;
-    border-color: #4a9b5e;
-    color: var(--so-white);
+  background-color: #4a9b5e;
+  border-color: #4a9b5e;
+  color: var(--so-white);
 }
 
 .btn-danger {
-    background-color: var(--so-red);
-    border-color: #b52d32;
-    color: var(--so-white);
+  background-color: var(--so-red);
+  border-color: #b52d32;
+  color: var(--so-white);
 }
 
 .btn-danger:hover {
-    background-color: #b52d32;
-    border-color: #b52d32;
-    color: var(--so-white);
+  background-color: #b52d32;
+  border-color: #b52d32;
+  color: var(--so-white);
 }
 
 .btn-warning {
-    background-color: var(--so-orange);
-    border-color: var(--so-orange-dark);
-    color: var(--so-white);
+  background-color: var(--so-orange);
+  border-color: var(--so-orange-dark);
+  color: var(--so-white);
 }
 
 .btn-warning:hover {
-    background-color: var(--so-orange-dark);
-    border-color: var(--so-orange-dark);
-    color: var(--so-white);
+  background-color: var(--so-orange-dark);
+  border-color: var(--so-orange-dark);
+  color: var(--so-white);
 }
 
 .btn-outline-primary {
-    border: 1px solid var(--so-blue);
-    color: var(--so-blue);
-    background-color: transparent;
+  border: 1px solid var(--so-blue);
+  color: var(--so-blue);
+  background-color: transparent;
 }
 
 .btn-outline-primary:hover {
-    background-color: var(--so-blue);
-    color: var(--so-white);
-    border-color: var(--so-blue);
+  background-color: var(--so-blue);
+  color: var(--so-white);
+  border-color: var(--so-blue);
 }
 
 .btn-outline-secondary {
-    border: 1px solid var(--so-gray-400);
-    color: var(--so-gray-600);
-    background-color: transparent;
+  border: 1px solid var(--so-gray-400);
+  color: var(--so-gray-600);
+  background-color: transparent;
 }
 
 .btn-outline-secondary:hover {
-    background-color: var(--so-gray-100);
-    color: var(--so-gray-700);
-    border-color: var(--so-gray-400);
+  background-color: var(--so-gray-100);
+  color: var(--so-gray-700);
+  border-color: var(--so-gray-400);
 }
 
-/* Forms - Stack Overflow Style */
-.form-control, .form-select {
-    border-radius: 3px;
-    border: 1px solid var(--so-gray-300);
-    transition: all 0.15s ease;
-    padding: 8px 12px;
-    background-color: var(--so-white);
-    font-size: 13px;
-    color: var(--so-black);
+.form-control,
+.form-select {
+  border-radius: 3px;
+  border: 1px solid var(--so-gray-300);
+  transition: all 0.15s ease;
+  padding: 8px 12px;
+  background-color: var(--so-white);
+  font-size: 13px;
+  color: var(--so-black);
 }
 
-.form-control:focus, .form-select:focus {
-    border-color: var(--so-blue);
-    box-shadow: 0 0 0 3px rgba(0, 116, 204, 0.1);
-    background-color: var(--so-white);
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--so-blue);
+  box-shadow: 0 0 0 3px rgba(0, 116, 204, 0.1);
+  background-color: var(--so-white);
 }
 
 .form-label {
-    font-weight: 600;
-    color: var(--so-black);
-    margin-bottom: 4px;
-    font-size: 13px;
+  font-weight: 600;
+  color: var(--so-black);
+  margin-bottom: 4px;
+  font-size: 13px;
 }
 
-/* File Upload */
 .file-upload-area {
-    border: 1px dashed var(--so-gray-300);
-    border-radius: 3px;
-    padding: 24px;
-    text-align: center;
-    transition: all 0.15s ease;
-    background-color: var(--so-gray-50);
+  border: 1px dashed var(--so-gray-300);
+  border-radius: 3px;
+  padding: 24px;
+  text-align: center;
+  transition: all 0.15s ease;
+  background-color: var(--so-gray-50);
 }
 
 .file-upload-area:hover {
-    border-color: var(--so-blue);
-    background-color: var(--so-white);
+  border-color: var(--so-blue);
+  background-color: var(--so-white);
 }
 
 .file-upload-area.dragover {
-    border-color: var(--so-blue);
-    background-color: #f0f8ff;
+  border-color: var(--so-blue);
+  background-color: #f0f8ff;
 }
 
-/* Tables */
 .table {
-    background-color: var(--so-white);
-    border-radius: 3px;
-    overflow: hidden;
-    box-shadow: none;
-    border: 1px solid var(--so-gray-300);
+  background-color: var(--so-white);
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: none;
+  border: 1px solid var(--so-gray-300);
 }
 
 .table thead th {
-    background-color: var(--so-gray-100);
-    color: var(--so-black);
-    border-bottom: 1px solid var(--so-gray-300);
-    font-weight: 600;
-    padding: 12px;
-    font-size: 13px;
+  background-color: var(--so-gray-100);
+  color: var(--so-black);
+  border-bottom: 1px solid var(--so-gray-300);
+  font-weight: 600;
+  padding: 12px;
+  font-size: 13px;
 }
 
 .table tbody tr {
-    transition: background-color 0.1s ease;
+  transition: background-color 0.1s ease;
 }
 
 .table tbody tr:hover {
-    background-color: var(--so-gray-50);
+  background-color: var(--so-gray-50);
 }
 
 .table tbody td {
-    padding: 12px;
-    border-color: var(--so-gray-200);
-    vertical-align: middle;
-    font-size: 13px;
+  padding: 12px;
+  border-color: var(--so-gray-200);
+  vertical-align: middle;
+  font-size: 13px;
 }
 
-/* Badges - Stack Overflow Style */
 .badge {
-    font-weight: 400;
-    letter-spacing: normal;
-    border-radius: 3px;
-    padding: 4px 8px;
-    font-size: 11px;
+  font-weight: 400;
+  letter-spacing: normal;
+  border-radius: 3px;
+  padding: 4px 8px;
+  font-size: 11px;
 }
 
 .badge.bg-primary {
-    background-color: var(--so-blue) !important;
-    color: var(--so-white);
+  background-color: var(--so-blue) !important;
+  color: var(--so-white);
 }
 
 .badge.bg-success {
-    background-color: var(--so-green) !important;
-    color: var(--so-white);
+  background-color: var(--so-green) !important;
+  color: var(--so-white);
 }
 
 .badge.bg-info {
-    background-color: var(--so-blue) !important;
-    color: var(--so-white);
+  background-color: var(--so-blue) !important;
+  color: var(--so-white);
 }
 
 .badge.bg-secondary {
-    background-color: var(--so-gray-500) !important;
-    color: var(--so-white);
+  background-color: var(--so-gray-500) !important;
+  color: var(--so-white);
 }
 
-/* Alerts - Stack Overflow Style */
 .alert {
-    border: 1px solid;
-    border-radius: 3px;
-    font-weight: 400;
-    box-shadow: none;
-    padding: 12px 16px;
-    font-size: 13px;
+  border: 1px solid;
+  border-radius: 3px;
+  font-weight: 400;
+  box-shadow: none;
+  padding: 12px 16px;
+  font-size: 13px;
 }
 
 .alert-success {
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
-    color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
 }
 
 .alert-danger {
-    background-color: #f2dede;
-    border-color: #ebccd1;
-    color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
 }
 
 .alert-info {
-    background-color: #d9edf7;
-    border-color: #bce8f1;
-    color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
 }
 
 .alert-warning {
-    background-color: #fcf8e3;
-    border-color: #faebcc;
-    color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
 }
 
-/* Search Results */
 .search-highlight {
-    background-color: var(--so-yellow);
-    color: var(--so-black);
-    padding: 1px 3px;
-    border-radius: 2px;
-    font-weight: 600;
+  background-color: var(--so-yellow);
+  color: var(--so-black);
+  padding: 1px 3px;
+  border-radius: 2px;
+  font-weight: 600;
 }
 
-/* Loading States */
 .loading {
-    opacity: 0.6;
-    pointer-events: none;
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 .spinner-border {
-    color: var(--so-orange);
+  color: var(--so-orange);
 }
 
-/* Pagination - Stack Overflow Style */
 .pagination .page-link {
-    border: 1px solid var(--so-gray-300);
-    color: var(--so-blue);
-    background-color: var(--so-white);
-    border-radius: 0;
-    margin: 0;
-    padding: 8px 12px;
-    transition: all 0.15s ease;
-    font-size: 13px;
+  border: 1px solid var(--so-gray-300);
+  color: var(--so-blue);
+  background-color: var(--so-white);
+  border-radius: 0;
+  margin: 0;
+  padding: 8px 12px;
+  transition: all 0.15s ease;
+  font-size: 13px;
 }
 
 .pagination .page-link:hover {
-    background-color: var(--so-gray-100);
-    color: var(--so-blue-dark);
+  background-color: var(--so-gray-100);
+  color: var(--so-blue-dark);
 }
 
 .pagination .page-item.active .page-link {
-    background-color: var(--so-orange);
-    border-color: var(--so-orange);
-    color: var(--so-white);
+  background-color: var(--so-orange);
+  border-color: var(--so-orange);
+  color: var(--so-white);
 }
 
 .pagination .page-item:first-child .page-link {
-    border-radius: 3px 0 0 3px;
+  border-radius: 3px 0 0 3px;
 }
 
 .pagination .page-item:last-child .page-link {
-    border-radius: 0 3px 3px 0;
+  border-radius: 0 3px 3px 0;
 }
 
-/* Dropdown - Stack Overflow Style */
 .dropdown-menu {
-    border: 1px solid var(--so-gray-300);
-    border-radius: 3px;
-    box-shadow: var(--shadow-lg);
-    padding: 4px 0;
+  border: 1px solid var(--so-gray-300);
+  border-radius: 3px;
+  box-shadow: var(--shadow-lg);
+  padding: 4px 0;
 }
 
 .dropdown-item {
-    border-radius: 0;
-    padding: 6px 16px;
-    transition: all 0.1s ease;
-    color: var(--so-black);
-    font-size: 13px;
+  border-radius: 0;
+  padding: 6px 16px;
+  transition: all 0.1s ease;
+  color: var(--so-black);
+  font-size: 13px;
 }
 
 .dropdown-item:hover {
-    background-color: var(--so-gray-100);
-    color: var(--so-black);
-}/* Footer - Stack Overflow Style */
+  background-color: var(--so-gray-100);
+  color: var(--so-black);
+}
 footer {
-    background-color: var(--so-gray-800) !important;
-    color: var(--so-gray-300);
-    margin-top: 48px;
-    padding: 32px 0;
+  background-color: var(--so-gray-800) !important;
+  color: var(--so-gray-300);
+  margin-top: 48px;
+  padding: 32px 0;
 }
 
-footer h5, footer h6 {
-    color: var(--so-white);
-    font-weight: 600;
+footer h5,
+footer h6 {
+  color: var(--so-white);
+  font-weight: 600;
 }
 
 footer a {
-    color: var(--so-gray-400);
-    transition: color 0.15s ease;
-    text-decoration: none;
+  color: var(--so-gray-400);
+  transition: color 0.15s ease;
+  text-decoration: none;
 }
 
 footer a:hover {
-    color: var(--so-white);
+  color: var(--so-white);
 }
 
-/* Statistics Cards - Stack Overflow Style */
 .stats-card {
-    background-color: var(--so-white);
-    border: 1px solid var(--so-gray-300);
-    border-radius: 3px;
-    padding: 16px;
-    text-align: center;
-    transition: all 0.15s ease;
+  background-color: var(--so-white);
+  border: 1px solid var(--so-gray-300);
+  border-radius: 3px;
+  padding: 16px;
+  text-align: center;
+  transition: all 0.15s ease;
 }
 
 .stats-card:hover {
-    box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-md);
 }
 
 .stats-number {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--so-orange);
-    display: block;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--so-orange);
+  display: block;
 }
 
-/* Sidebar Cards - Stack Overflow Style */
 .sidebar-card {
-    background-color: var(--so-white);
-    border: 1px solid var(--so-gray-300);
-    border-radius: 3px;
-    margin-bottom: 16px;
+  background-color: var(--so-white);
+  border: 1px solid var(--so-gray-300);
+  border-radius: 3px;
+  margin-bottom: 16px;
 }
 
 .sidebar-card .card-header {
-    background-color: var(--so-gray-100);
-    color: var(--so-black);
-    border-radius: 3px 3px 0 0;
-    font-weight: 600;
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--so-gray-300);
+  background-color: var(--so-gray-100);
+  color: var(--so-black);
+  border-radius: 3px 3px 0 0;
+  font-weight: 600;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--so-gray-300);
 }
 
-/* Vote buttons (Stack Overflow style) */
 .vote-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-right: 16px;
-    min-width: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 16px;
+  min-width: 36px;
 }
 
 .vote-btn {
-    background: none;
-    border: none;
-    color: var(--so-gray-400);
-    font-size: 18px;
-    padding: 4px;
-    cursor: pointer;
-    transition: color 0.15s ease;
+  background: none;
+  border: none;
+  color: var(--so-gray-400);
+  font-size: 18px;
+  padding: 4px;
+  cursor: pointer;
+  transition: color 0.15s ease;
 }
 
 .vote-btn:hover {
-    color: var(--so-orange);
+  color: var(--so-orange);
 }
 
 .vote-count {
-    font-size: 21px;
-    font-weight: 700;
-    color: var(--so-gray-600);
-    margin: 4px 0;
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--so-gray-600);
+  margin: 4px 0;
 }
 
-/* Question Stats */
 .question-stats {
-    font-size: 11px;
-    color: var(--so-gray-500);
-    text-align: center;
+  font-size: 11px;
+  color: var(--so-gray-500);
+  text-align: center;
 }
 
 .question-stats .stat-number {
-    font-weight: 700;
-    color: var(--so-black);
-    display: block;
-    font-size: 16px;
+  font-weight: 700;
+  color: var(--so-black);
+  display: block;
+  font-size: 16px;
 }
 
-/* Tags (Stack Overflow style) */
 .tag {
-    display: inline-block;
-    background-color: #e1ecf4;
-    color: #39739d;
-    padding: 4px 6px;
-    margin: 2px 2px 2px 0;
-    border-radius: 3px;
-    font-size: 12px;
-    text-decoration: none;
-    line-height: 1;
+  display: inline-block;
+  background-color: #e1ecf4;
+  color: #39739d;
+  padding: 4px 6px;
+  margin: 2px 2px 2px 0;
+  border-radius: 3px;
+  font-size: 12px;
+  text-decoration: none;
+  line-height: 1;
 }
 
 .tag:hover {
-    background-color: #cee0ed;
-    color: #2c5aa0;
-    text-decoration: none;
+  background-color: #cee0ed;
+  color: #2c5aa0;
+  text-decoration: none;
 }
 
-/* Footer */
 footer {
-    background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%) !important;
-    color: #ffffff;
-    margin-top: 3rem;
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%) !important;
+  color: #ffffff;
+  margin-top: 3rem;
 }
 
-footer h5, footer h6 {
-    color: #ffffff;
+footer h5,
+footer h6 {
+  color: #ffffff;
 }
 
 footer a {
-    color: rgba(255, 255, 255, 0.8);
-    transition: color 0.3s ease;
+  color: rgba(255, 255, 255, 0.8);
+  transition: color 0.3s ease;
 }
 
 footer a:hover {
-    color: #ffffff;
+  color: #ffffff;
 }
 
-/* Statistics Cards */
 .stats-card {
-    background: linear-gradient(135deg, var(--card-bg) 0%, #f8fafc 100%);
-    border-radius: 16px;
-    padding: 1.5rem;
-    text-align: center;
-    border-left: 4px solid var(--primary-color);
-    transition: all 0.3s ease;
+  background: linear-gradient(135deg, var(--card-bg) 0%, #f8fafc 100%);
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  border-left: 4px solid var(--primary-color);
+  transition: all 0.3s ease;
 }
 
 .stats-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
 .stats-number {
-    font-size: 2.5rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--secondary-color) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Sidebar Cards */
 .sidebar-card {
-    background: var(--card-bg);
-    border-radius: 16px;
-    box-shadow: var(--shadow-sm);
-    margin-bottom: 1.5rem;
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.5rem;
 }
 
 .sidebar-card .card-header {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-    color: var(--primary-color);
-    border-radius: 16px 16px 0 0;
-    font-weight: 600;
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.1) 0%,
+    rgba(118, 75, 162, 0.1) 100%
+  );
+  color: var(--primary-color);
+  border-radius: 16px 16px 0 0;
+  font-weight: 600;
 }
 
-/* Module Progress Bars */
 .module-progress {
-    height: 6px;
-    background: var(--border-color);
-    border-radius: 3px;
-    overflow: hidden;
-    margin-top: 8px;
+  height: 6px;
+  background: var(--border-color);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 8px;
 }
 
 .module-progress-bar {
-    height: 100%;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    border-radius: 3px;
-    transition: width 0.3s ease;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--secondary-color) 100%
+  );
+  border-radius: 3px;
+  transition: width 0.3s ease;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
-    main.container {
-        margin-top: 1rem;
-        border-radius: 16px 16px 0 0;
-        padding: 1.5rem;
-    }
-    
-    .card {
-        margin-bottom: 1.5rem;
-    }
-    
-    .card-body {
-        padding: 1rem;
-    }
-    
-    .btn {
-        padding: 8px 20px;
-        font-size: 0.9rem;
-    }
-    
-    .btn-group-vertical .btn {
-        margin-bottom: 0.5rem;
-    }
-    
-    .table-responsive {
-        font-size: 0.875rem;
-    }
-    
-    .post-meta {
-        flex-direction: column;
-        align-items: flex-start !important;
-    }
-    
-    .post-meta .badge {
-        margin-top: 0.5rem;
-    }
-    
-    .stats-number {
-        font-size: 2rem;
-    }
+  main.container {
+    margin-top: 1rem;
+    border-radius: 16px 16px 0 0;
+    padding: 1.5rem;
+  }
+
+  .card {
+    margin-bottom: 1.5rem;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  .btn {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+  }
+
+  .btn-group-vertical .btn {
+    margin-bottom: 0.5rem;
+  }
+
+  .table-responsive {
+    font-size: 0.875rem;
+  }
+
+  .post-meta {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+
+  .post-meta .badge {
+    margin-top: 0.5rem;
+  }
+
+  .stats-number {
+    font-size: 2rem;
+  }
 }
 
 @media (max-width: 576px) {
-    .container {
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-    
-    .btn-group {
-        flex-direction: column;
-    }
-    
-    .btn-group .btn {
-        margin-bottom: 0.25rem;
-        border-radius: 25px !important;
-    }
-    
-    .navbar-brand {
-        font-size: 1.25rem;
-    }
-    
-    .card-header {
-        padding: 1rem;
-    }
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .btn-group {
+    flex-direction: column;
+  }
+
+  .btn-group .btn {
+    margin-bottom: 0.25rem;
+    border-radius: 25px !important;
+  }
+
+  .navbar-brand {
+    font-size: 1.25rem;
+  }
+
+  .card-header {
+    padding: 1rem;
+  }
 }
 
-/* Print Styles */
 @media print {
-    .navbar, .btn, .alert, footer, .sidebar-card {
-        display: none !important;
-    }
-    
-    body {
-        background: #ffffff !important;
-    }
-    
-    .card {
-        border: 1px solid #dee2e6 !important;
-        box-shadow: none !important;
-        border-radius: 8px !important;
-    }
-    
-    .post-content img {
-        max-width: 100% !important;
-        page-break-inside: avoid;
-    }
+  .navbar,
+  .btn,
+  .alert,
+  footer,
+  .sidebar-card {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+  }
+
+  .card {
+    border: 1px solid #dee2e6 !important;
+    box-shadow: none !important;
+    border-radius: 8px !important;
+  }
+
+  .post-content img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
 }
 
-/* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
-    :root {
-        --card-bg: #2d3748;
-        --text-primary: #f7fafc;
-        --text-secondary: #a0aec0;
-        --border-color: #4a5568;
-        --light-bg: #1a202c;
-    }
-}/* Accessibility Improvements */
+  :root {
+    --card-bg: #2d3748;
+    --text-primary: #f7fafc;
+    --text-secondary: #a0aec0;
+    --border-color: #4a5568;
+    --light-bg: #1a202c;
+  }
+}
 .visually-hidden {
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    padding: 0 !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    white-space: nowrap !important;
-    border: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 
-/* Focus Indicators */
 a:focus,
 button:focus,
 input:focus,
 select:focus,
 textarea:focus {
-    outline: 3px solid var(--primary-color);
-    outline-offset: 2px;
-    border-radius: 4px;
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
-/* Animation Classes */
 .fade-in {
-    animation: fadeIn 0.6s ease-in;
+  animation: fadeIn 0.6s ease-in;
 }
 
 @keyframes fadeIn {
-    from { 
-        opacity: 0; 
-        transform: translateY(20px); 
-    }
-    to { 
-        opacity: 1; 
-        transform: translateY(0); 
-    }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .slide-in {
-    animation: slideIn 0.5s ease-out;
+  animation: slideIn 0.5s ease-out;
 }
 
 @keyframes slideIn {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(0); }
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .scale-in {
-    animation: scaleIn 0.4s ease-out;
+  animation: scaleIn 0.4s ease-out;
 }
 
 @keyframes scaleIn {
-    from { 
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to { 
-        opacity: 1;
-        transform: scale(1);
-    }
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
-/* Pulse animation for loading states */
 .pulse {
-    animation: pulse 2s infinite;
+  animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
-/* Error States */
 .is-invalid {
-    border-color: var(--danger-color) !important;
-    box-shadow: 0 0 0 0.2rem rgba(245, 101, 101, 0.15);
+  border-color: var(--danger-color) !important;
+  box-shadow: 0 0 0 0.2rem rgba(245, 101, 101, 0.15);
 }
 
 .invalid-feedback {
-    display: block;
-    font-size: 0.875rem;
-    color: var(--danger-color);
-    margin-top: 0.25rem;
-    font-weight: 500;
+  display: block;
+  font-size: 0.875rem;
+  color: var(--danger-color);
+  margin-top: 0.25rem;
+  font-weight: 500;
 }
 
-/* Success States */
 .is-valid {
-    border-color: var(--success-color) !important;
-    box-shadow: 0 0 0 0.2rem rgba(72, 187, 120, 0.15);
+  border-color: var(--success-color) !important;
+  box-shadow: 0 0 0 0.2rem rgba(72, 187, 120, 0.15);
 }
 
 .valid-feedback {
-    display: block;
-    font-size: 0.875rem;
-    color: var(--success-color);
-    margin-top: 0.25rem;
-    font-weight: 500;
+  display: block;
+  font-size: 0.875rem;
+  color: var(--success-color);
+  margin-top: 0.25rem;
+  font-weight: 500;
 }
 
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--light-bg);
-    border-radius: 4px;
+  background: var(--light-bg);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    border-radius: 4px;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--secondary-color) 100%
+  );
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, var(--primary-dark) 0%, #5a4b8a 100%);
+  background: linear-gradient(135deg, var(--primary-dark) 0%, #5a4b8a 100%);
 }
 
-/* Special Effects */
 .glass-effect {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .glow-effect {
-    box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
 }
 
 .text-gradient {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--secondary-color) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Utility Classes */
 .border-gradient {
-    border: 2px solid transparent;
-    background: linear-gradient(white, white) padding-box,
-                linear-gradient(135deg, var(--primary-color), var(--secondary-color)) border-box;
-    border-radius: 12px;
+  border: 2px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(135deg, var(--primary-color), var(--secondary-color))
+      border-box;
+  border-radius: 12px;
 }
 
 .shadow-custom {
-    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.2);
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.2);
 }
 
 .bg-gradient-primary {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--secondary-color) 100%
+  );
 }
 
 .bg-gradient-light {
-    background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+  background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
 }
 
-/* Interactive Elements */
 .interactive:hover {
-    transform: translateY(-2px);
-    transition: all 0.3s ease;
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
 }
 
 .clickable {
-    cursor: pointer;
-    transition: all 0.2s ease;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .clickable:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
-/* Modern Card Variants */
 .card-modern {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .card-gradient {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
